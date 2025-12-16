@@ -1,5 +1,3 @@
-
-
 /* Variables */
 :root {
     /* Cores fixas (roxo como cor principal) */
@@ -268,6 +266,8 @@ h1, h2, h3, h4, h5, h6 {
         0 0 25px rgba(124, 58, 237, 0.25),
         0 10px 40px rgba(0, 0, 0, 0.5);
     position: relative;
+    transform: translateY(0);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .code-preview::before {
@@ -283,6 +283,13 @@ h1, h2, h3, h4, h5, h6 {
     opacity: 0.3;
     filter: blur(20px);
     animation: glow-pulse 3s ease-in-out infinite;
+}
+
+.code-preview:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow:
+        0 0 40px rgba(124, 58, 237, 0.4),
+        0 18px 55px rgba(0, 0, 0, 0.8);
 }
 
 @keyframes glow-pulse {
@@ -325,6 +332,53 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 0.9rem;
     line-height: 1.8;
     color: var(--text-white);
+}
+
+.code-status {
+    margin-top: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.code-status-text {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--text-gray);
+}
+
+.code-progress {
+    flex: 1;
+    height: 4px;
+    border-radius: 999px;
+    background: rgba(31, 41, 55, 0.9);
+    overflow: hidden;
+    position: relative;
+}
+
+.code-progress-fill {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, var(--purple-dark), var(--purple-light));
+    transform-origin: left center;
+    animation: code-progress-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes code-progress-pulse {
+    0% {
+        transform: translateX(-30%) scaleX(0.2);
+        opacity: 0.2;
+    }
+    50% {
+        transform: translateX(0) scaleX(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(60%) scaleX(0.3);
+        opacity: 0.4;
+    }
 }
 
 .code-content .keyword {
