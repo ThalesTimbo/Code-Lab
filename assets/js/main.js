@@ -177,7 +177,7 @@
             const button = contactForm.querySelector('button[type="submit"]');
             const originalText = button.textContent;
             button.textContent = 'Enviado!';
-            button.style.background = 'var(--gradient-purple-orange)';
+            button.style.background = 'var(--purple)';
             
             setTimeout(() => {
                 button.textContent = originalText;
@@ -200,22 +200,6 @@
         item.addEventListener('mouseleave', function() {
             this.style.transform = 'scale(1)';
         });
-    });
-
-    // ============================================
-    // Parallax Effect (Subtle)
-    // ============================================
-    window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset;
-        const hero = document.querySelector('.hero');
-        
-        if (hero) {
-            const heroContent = hero.querySelector('.hero-content');
-            if (heroContent && scrolled < window.innerHeight) {
-                heroContent.style.transform = `translateY(${scrolled * 0.3}px)`;
-                heroContent.style.opacity = 1 - (scrolled / window.innerHeight);
-            }
-        }
     });
 
     // ============================================
