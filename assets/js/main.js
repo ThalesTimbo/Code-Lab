@@ -232,6 +232,16 @@
     // ============================================
     const portfolioItems = document.querySelectorAll('.portfolio-item');
     
+    const doubleTapDelay = 400; // ms
+    const lastTapMap = new WeakMap();
+
+    const openPortfolioUrl = (item) => {
+        const targetUrl = item.dataset.url;
+        if (targetUrl) {
+            window.open(targetUrl, '_blank', 'noopener');
+        }
+    };
+
     portfolioItems.forEach(item => {
         item.addEventListener('mouseenter', function() {
             this.style.transform = 'scale(1.02)';
@@ -241,10 +251,21 @@
             this.style.transform = 'scale(1)';
         });
 
+        // Desktop: duplo clique nativo
         item.addEventListener('dblclick', function() {
-            const targetUrl = this.dataset.url;
-            if (targetUrl) {
-                window.open(targetUrl, '_blank', 'noopener');
+            openPortfolioUrl(this);
+        });
+
+        // Mobile: emular duplo toque
+        item.addEventListener('pointerup', function(event) {
+            if (event.pointerType !== 'touch') return;
+            const lastTap = lastTapMap.get(this) || 0;
+            const now = Date.now();
+            if (now - lastTap <= doubleTapDelay) {
+                openPortfolioUrl(this);
+                lastTapMap.set(this, 0);
+            } else {
+                lastTapMap.set(this, now);
             }
         });
     });
