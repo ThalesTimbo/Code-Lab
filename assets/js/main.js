@@ -6,9 +6,8 @@
 (function() {
     'use strict';
 
-    // ============================================
     // Navigation
-    // ============================================
+
     const navbar = document.getElementById('navbar');
     const menuToggle = document.getElementById('menuToggle');
     const navMenu = document.getElementById('navMenu');
@@ -94,9 +93,19 @@
         });
     });
 
-    // ============================================
+  window.addEventListener("load", () => {
+    const loading = document.getElementById("loading-screen");
+
+    loading.style.opacity = "0";
+
+    setTimeout(() => {
+      loading.style.display = "none";
+    }, 600);
+  });
+
+
     // Lazy Loading
-    // ============================================
+
     const lazyLoadObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
