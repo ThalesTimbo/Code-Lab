@@ -168,6 +168,13 @@ h1, h2, h3, h4, h5, h6 {
     padding: 5px;
 }
 
+.menu-toggle-icon {
+    width: 28px;
+    height: 28px;
+    display: block;
+    object-fit: contain;
+}
+
 .menu-toggle span {
     width: 25px;
     height: 2px;
