@@ -205,27 +205,49 @@
             });
         }
 
-        contactForm.addEventListener('submit', (e) => {
+        contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
-            // Get form values
-            const formData = new FormData(contactForm);
-            const data = Object.fromEntries(formData);
-            
-            // Here you would typically send to a server
-            console.log('Form submitted:', data);
-            
-            // Show success message
+
             const button = contactForm.querySelector('button[type="submit"]');
-            const originalText = button.textContent;
-            button.textContent = 'Enviado!';
-            button.style.background = 'var(--purple)';
-            
-            setTimeout(() => {
-                button.textContent = originalText;
-                button.style.background = '';
+            const originalText = button ? button.textContent : '';
+
+            if (button) {
+                button.textContent = 'Enviando...';
+                button.disabled = true;
+            }
+
+            const formData = new FormData(contactForm);
+
+            try {
+                const response = await fetch(contactForm.action, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json'
+                    },
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error('FormSubmit response not ok');
+                }
+
+                if (button) {
+                    button.textContent = 'Enviado!';
+                }
                 contactForm.reset();
-            }, 3000);
+            } catch (error) {
+                console.error('Erro ao enviar formulário:', error);
+                if (button) {
+                    button.textContent = 'Tente novamente';
+                }
+            } finally {
+                if (button) {
+                    setTimeout(() => {
+                        button.textContent = originalText || 'Enviar';
+                        button.disabled = false;
+                    }, 2500);
+                }
+            }
         });
     }
 
