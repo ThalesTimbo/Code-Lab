@@ -902,6 +902,8 @@ section {
     border: 1px solid var(--border-color);
     background: rgba(21, 21, 21, 0.5);
     transition: var(--transition);
+    text-decoration: none;
+    color: inherit;
 }
 
 .contact-item:hover {
@@ -935,10 +937,12 @@ section {
 .contact-item h4 {
     margin-bottom: 0.25rem;
     color: var(--text-white);
+    text-decoration: none;
 }
 
 .contact-item p {
     color: var(--text-gray);
+    text-decoration: none;
 }
 
 .contact-form {
