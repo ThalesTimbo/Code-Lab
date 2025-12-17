@@ -12,6 +12,14 @@
     const menuToggle = document.getElementById('menuToggle');
     const navMenu = document.getElementById('navMenu');
     const navLinks = document.querySelectorAll('.nav-link');
+    const sectionsToReveal = [
+        ...document.querySelectorAll('section'),
+        ...document.querySelectorAll('.service-card'),
+        ...document.querySelectorAll('.portfolio-item'),
+        ...document.querySelectorAll('.team-card'),
+        ...document.querySelectorAll('.contact-item'),
+        ...document.querySelectorAll('.stat-item')
+    ];
 
     // Navbar scroll effect
     let lastScroll = 0;
@@ -40,6 +48,26 @@
             });
         });
     }
+
+    // Reveal on scroll
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.12,
+        rootMargin: '0px 0px -5% 0px'
+    });
+
+    sectionsToReveal.forEach(el => {
+        if (!el.classList.contains('reveal')) {
+            el.classList.add('reveal');
+        }
+        revealObserver.observe(el);
+    });
 
     // Active nav link on scroll
     const sections = document.querySelectorAll('section[id]');
