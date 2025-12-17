@@ -126,7 +126,9 @@
                 
                 // Load image if data-src exists
                 if (element.dataset.src) {
-                    element.style.backgroundImage = `url(${element.dataset.src})`;
+                    const src = element.dataset.src.trim();
+                    const safeSrc = encodeURI(src);
+                    element.style.backgroundImage = `url("${safeSrc}")`;
                     element.dataset.src = '';
                 }
                 
