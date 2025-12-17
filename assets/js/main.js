@@ -240,6 +240,13 @@
         item.addEventListener('mouseleave', function() {
             this.style.transform = 'scale(1)';
         });
+
+        item.addEventListener('dblclick', function() {
+            const targetUrl = this.dataset.url;
+            if (targetUrl) {
+                window.open(targetUrl, '_blank', 'noopener');
+            }
+        });
     });
 
     // ============================================
